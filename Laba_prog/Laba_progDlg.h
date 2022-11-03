@@ -4,6 +4,7 @@
 
 #pragma once
 #include "Drawer.h"
+#include "Analise.h"
 
 // Диалоговое окно CLabaprogDlg
 class CLabaprogDlg : public CDialogEx
@@ -38,5 +39,7 @@ public:
 		Graph_Sign, //сигнал на входе
 		Graph_ACH,	//АЧХ
 		Graph_FCH;	//ФЧХ
+	
 
+	double Phase;
 };

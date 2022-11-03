@@ -52,6 +52,7 @@ END_MESSAGE_MAP()
 
 CLabaprogDlg::CLabaprogDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_LABA_PROG_DIALOG, pParent)
+	, Phase(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -59,6 +60,7 @@ CLabaprogDlg::CLabaprogDlg(CWnd* pParent /*=nullptr*/)
 void CLabaprogDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_EDIT1, Phase);
 }
 
 BEGIN_MESSAGE_MAP(CLabaprogDlg, CDialogEx)
@@ -158,11 +160,61 @@ HCURSOR CLabaprogDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+//Создает сигнал и отсчеты
+//fd - частота дискретизации
+//f -  частота сигнала
+//phase - начальная фаза
+//K - множитель амплитуды
+//SignR - реальная часть сигнала
+//SignI - мнимая
+void CreateSign(double* SignR, double * SignI, double* keys, int N, double fd, double f, double phase, double K) {
+	for (int i = 0; i < N; i++) {
+		SignR[i] = K * sin(2 * Pi * f * (i / fd) + phase);
+		SignI[i] = 0;
+		keys[i] = i / fd;
+	}
+}
 
 //кнопка, которая измеряет сигналы
 void CLabaprogDlg::OnBnClickedOk()
 {
+	UpdateData(true);
+
 	Graph_Sign.DrawW();
 	Graph_ACH.DrawW();
 	Graph_FCH.DrawW();
+	
+	
+
+	//Проверка корректности работы этой херни
+	int N = 256;
+	double fd = 100;
+
+	Signal_Analise Data(1);
+
+	double
+		* Sign1, //первый сигнал Re
+		* Sign2, //второй сигнал Re
+		* Sign1Im, //первый сигнал Im
+		* Sign2Im, //второй сигнал Im
+		* keys1, //ключи(хз зачем но путь будут)
+		* keys2;
+	Sign1 = new double[N];
+	Sign2 = new double[N];
+	Sign1Im = new double[N];
+	Sign2Im = new double[N];
+	keys1 = new double[N];
+	keys2 = new double[N];
+
+	CreateSign(Sign1, Sign1Im, keys1, N, fd, 1, 0, 1); //входной сигнал
+	CreateSign(Sign2, Sign1Im, keys2, N, fd, 1, 1, 2); //выходной сигнал
+
+	Data.FFT(Sign1, Sign1Im, N, log2(N), -1); // прямое фурье
+	Data.FFT(Sign2, Sign2Im, N, log2(N), -1); // прямое фурье
+	Data.FCH_Find(Sign1, Sign1Im, Sign2, Sign2Im, N);// находим ФЧХ для данной частоты
+
+	Phase = Data.GetLastFCH();
+
+	UpdateData(false);
+
 }
