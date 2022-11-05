@@ -75,10 +75,6 @@ BOOL CLabaprogDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	Graph_Sign.Create(GetDlgItem(IDC_SIGN)->GetSafeHwnd());
-	Graph_ACH.Create(GetDlgItem(IDC_ACH)->GetSafeHwnd());
-	Graph_FCH.Create(GetDlgItem(IDC_FCH)->GetSafeHwnd());
-		
 	// Добавление пункта "О программе..." в системное меню.
 
 	// IDM_ABOUTBOX должен быть в пределах системной команды.
@@ -162,7 +158,10 @@ HCURSOR CLabaprogDlg::OnQueryDragIcon()
 //кнопка, которая измеряет сигналы
 void CLabaprogDlg::OnBnClickedOk()
 {
-	Graph_Sign.DrawW();
-	Graph_ACH.DrawW();
-	Graph_FCH.DrawW();
+	Signal_Analise sgn(1024, 100, 1);
+	sgn.setAFCHWND(GetDlgItem(IDC_ACH)->GetSafeHwnd());
+	sgn.setPFCHWND(GetDlgItem(IDC_FCH)->GetSafeHwnd());
+
+
+	sgn.CalcFC(1, 100, 2);
 }

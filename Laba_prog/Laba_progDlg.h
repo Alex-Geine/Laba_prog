@@ -3,7 +3,8 @@
 //
 
 #pragma once
-#include "Drawer.h"
+#include"Analise.h"
+
 
 // Диалоговое окно CLabaprogDlg
 class CLabaprogDlg : public CDialogEx
@@ -33,10 +34,4 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
-	//Обьекты для графиков
-	Drawer
-		Graph_Sign, //сигнал на входе
-		Graph_ACH,	//АЧХ
-		Graph_FCH;	//ФЧХ
-
 };
