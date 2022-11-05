@@ -76,8 +76,8 @@ void Drawer::DrawGraph(vector<double>& signal, double xmin, double xmax)
 	int N = signal.size();
 	double data_x_min = xmin;
 	double data_x_max = xmax;
-	double data_y_min = 0.9**min_element(signal.begin(), signal.end());
-	double data_y_max = 1.1**max_element(signal.begin(), signal.end());
+	double data_y_min = *min_element(signal.begin(), signal.end());
+	double data_y_max = *max_element(signal.begin(), signal.end());
 	if (data_y_min == data_y_max)data_y_min = 0;
 	// Белый фон.
 	memDC.FillSolidRect(frame, RGB(255, 255, 255));
