@@ -47,6 +47,8 @@ protected:
 	double abs(const cmplx& item);
 	//Фаза комплексного числа
 	double arg(const cmplx& item);
+	// сводит фазу к [0, 2pi]
+	double resize(double phase);
 
 
 public:

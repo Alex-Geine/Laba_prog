@@ -18,8 +18,8 @@ void Signal_Analise::CalcFC(double left, double right, double A)
 	{
 		fd = 50 * f;
 		//создали сигнал
-		vector<cmplx>input = CreateSign(A, f, -pi/2);
-		vector<cmplx>output = CreateSign(2 * A, f, pi);
+		vector<cmplx>input = CreateSign(A, f, pi);
+		vector<cmplx>output = CreateSign(2 * A, f, pi/2);
 
 		
 		//получили фурье
@@ -46,7 +46,7 @@ void Signal_Analise::CalcFC(double left, double right, double A)
 
 		double K = absmax / abs(input_f[id]);
 		double phase = arg(output_f[id]) - arg(input_f[id]);
-
+		phase = resize(phase);
 
 		AFC.push_back(K);
 		PFC.push_back(phase);
@@ -84,4 +84,14 @@ void Signal_Analise::Draw(double left, double right)
 	AFCdrv.DrawGraph(AFC, left, right);
 	PFCdrv.DrawGraph(PFC, left, right);
 
+}
+
+
+double Signal_Analise::resize(double phase)
+{
+	double k = phase / (2 * pi);
+	k = int(k) * 2 * pi;
+	phase -= k;
+	if (phase < 0)phase += 2 * pi;
+	return phase;
 }
