@@ -158,10 +158,10 @@ HCURSOR CLabaprogDlg::OnQueryDragIcon()
 //кнопка, которая измеряет сигналы
 void CLabaprogDlg::OnBnClickedOk()
 {
-	Signal_Analise sgn(1024, 100, 1);
+	Signal_Analise sgn(1024, 1000, 1);
 	sgn.setAFCHWND(GetDlgItem(IDC_ACH)->GetSafeHwnd());
 	sgn.setPFCHWND(GetDlgItem(IDC_FCH)->GetSafeHwnd());
 
 
-	sgn.CalcFC(1, 100, 2);
+	sgn.CalcFC(1, 1000, 2);
 }

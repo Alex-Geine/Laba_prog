@@ -16,11 +16,12 @@ void Signal_Analise::CalcFC(double left, double right, double A)
 
 	for (double f = left; f <= right; f += df)
 	{
+		fd = 50 * f;
 		//создали сигнал
 		vector<cmplx>input = CreateSign(A, f, 0);
 		vector<cmplx>output = CreateSign(2 * A, f, pi);
 
-
+		
 		//получили фурье
 		vector<cmplx>input_f = input;
 		vector<cmplx>output_f = output;
