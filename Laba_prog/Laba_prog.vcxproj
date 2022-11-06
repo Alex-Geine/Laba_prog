@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Analise.h" />
+    <ClInclude Include="cmplx.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Laba_prog.h" />
@@ -194,6 +195,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Analise.cpp" />
+    <ClCompile Include="cmplx.cpp" />
+    <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="Laba_prog.cpp" />
     <ClCompile Include="Laba_progDlg.cpp" />
     <ClCompile Include="pch.cpp">
