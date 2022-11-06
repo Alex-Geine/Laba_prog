@@ -163,5 +163,5 @@ void CLabaprogDlg::OnBnClickedOk()
 	sgn.setPFCHWND(GetDlgItem(IDC_FCH)->GetSafeHwnd());
 
 
-	sgn.CalcFC(1, 1000, 2);
+	sgn.CalcFC(1, 100, 2);
 }

@@ -1,7 +1,7 @@
 #include"pch.h"
 #include "Analise.h"
 
-Signal_Analise::Signal_Analise(int N, double fd, double df) :N(N), fd(fd), df(df) {}
+Signal_Analise::Signal_Analise(int N, double fd, double df) :N(N), fd(fd), df(df) { }
 
 vector<cmplx> Signal_Analise::CreateSign(double A, double f, double y)
 {
@@ -18,7 +18,7 @@ void Signal_Analise::CalcFC(double left, double right, double A)
 	{
 		fd = 50 * f;
 		//создали сигнал
-		vector<cmplx>input = CreateSign(A, f, 0);
+		vector<cmplx>input = CreateSign(A, f, -pi/2);
 		vector<cmplx>output = CreateSign(2 * A, f, pi);
 
 		
@@ -65,8 +65,8 @@ double Signal_Analise::abs(const cmplx& item)
 
 double Signal_Analise::arg(const cmplx& item)
 {
-	double phase = asin(item.im / abs(item));
-	if (item.re < 0)phase = pi - phase;
+	double phase = acos(item.re / abs(item));
+	if (item.im < 0)phase += 2 * pi;
 	return phase;
 }
 
