@@ -52,8 +52,9 @@ END_MESSAGE_MAP()
 
 CLabaprogDlg::CLabaprogDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_LABA_PROG_DIALOG, pParent)
-	, left(0)
-	, right(1000)
+	, left(-50)
+	, right(50)
+	, df(1)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -63,6 +64,7 @@ void CLabaprogDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT1, left);
 	DDX_Text(pDX, IDC_EDIT2, right);
+	DDX_Text(pDX, IDC_EDIT3, df);
 }
 
 BEGIN_MESSAGE_MAP(CLabaprogDlg, CDialogEx)
@@ -162,10 +164,12 @@ HCURSOR CLabaprogDlg::OnQueryDragIcon()
 //кнопка, которая измеряет сигналы
 void CLabaprogDlg::OnBnClickedOk()
 {
-	Signal_Analise sgn(1024, 1000, 1);
+	UpdateData();
+
+
+	Signal_Analise sgn(1024, 1000, df);
 	sgn.setAFCHWND(GetDlgItem(IDC_ACH)->GetSafeHwnd());
 	sgn.setPFCHWND(GetDlgItem(IDC_FCH)->GetSafeHwnd());
 
-	UpdateData();
 	sgn.CalcFC(left, right, 2);
 }

@@ -36,4 +36,5 @@ public:
 	afx_msg void OnBnClickedOk();
 	double left;
 	double right;
+	double df;
 };
