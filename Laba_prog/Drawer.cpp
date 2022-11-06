@@ -128,15 +128,15 @@ void Drawer::DrawGraph(vector<double>& signal, double xmin, double xmax)
 
 
 	double fd = (xmax - xmin) / (N - 1);
-	memDC.MoveTo(convert_range(0, actual_right, actual_left, data_x_max, data_x_min), signal[0]);
+	memDC.MoveTo(convert_range(data_x_min, actual_right, actual_left, data_x_max, data_x_min), signal[0]);
 	for (int i = 0; i < N; i++)
 	{
-		double x = convert_range(data_x_min + i * fd, actual_right, actual_left, data_x_max, data_x_min);
+		double x = data_x_min + i * fd;
+		x = convert_range(x, actual_right, actual_left, data_x_max, data_x_min);
 
 
 		memDC.LineTo(x, signal[i]);
 	}
-
 
 	dc->BitBlt(0, 0, frame.Width(), frame.Height(), &memDC, 0, 0, SRCCOPY);
 }

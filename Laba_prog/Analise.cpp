@@ -13,13 +13,21 @@ vector<cmplx> Signal_Analise::CreateSign(double A, double f, double y)
 
 void Signal_Analise::CalcFC(double left, double right, double A)
 {
-
+	
 	for (double f = left; f <= right; f += df)
 	{
+		if (f == 0)
+		{
+			AFC.push_back(0);
+			PFC.push_back(0);
+			continue;
+		}
+
+
 		fd = 50 * f;
 		//создали сигнал
 		vector<cmplx>input = CreateSign(A, f, pi);
-		vector<cmplx>output = CreateSign(2 * A, f, pi/2);
+		vector<cmplx>output = CreateSign(A/f, f, pi/f);
 
 		
 		//получили фурье

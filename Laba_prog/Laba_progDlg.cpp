@@ -52,6 +52,8 @@ END_MESSAGE_MAP()
 
 CLabaprogDlg::CLabaprogDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_LABA_PROG_DIALOG, pParent)
+	, left(0)
+	, right(1000)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -59,6 +61,8 @@ CLabaprogDlg::CLabaprogDlg(CWnd* pParent /*=nullptr*/)
 void CLabaprogDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_EDIT1, left);
+	DDX_Text(pDX, IDC_EDIT2, right);
 }
 
 BEGIN_MESSAGE_MAP(CLabaprogDlg, CDialogEx)
@@ -162,6 +166,6 @@ void CLabaprogDlg::OnBnClickedOk()
 	sgn.setAFCHWND(GetDlgItem(IDC_ACH)->GetSafeHwnd());
 	sgn.setPFCHWND(GetDlgItem(IDC_FCH)->GetSafeHwnd());
 
-
-	sgn.CalcFC(1, 100, 2);
+	UpdateData();
+	sgn.CalcFC(left, right, 2);
 }
